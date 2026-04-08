@@ -1,7 +1,7 @@
 ---
 title: Load analysis
 has_children: false
-parent: Tutorialc:\utku\GitHub\PlateReader\docs\pages\tutorial\start_new_analysis\media\platereader_app.png
+parent: Tutorial
 nav_order: 2
 layout: page
 ---

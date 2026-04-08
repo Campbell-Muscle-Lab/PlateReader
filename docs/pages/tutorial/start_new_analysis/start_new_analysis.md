@@ -70,6 +70,10 @@ This spreadsheet consists of the known concentrations of the loaded standard col
 
 The next step in the analysis is to load the raw data from the plate reader. This file is exported from the instrument in a text format. Please make sure to wells are not marked in the instrument, since the calculations will be done separately.
 
+You can follow the below video to export raw data from the plate reader.
+
+<video src="media/how_to_export_txt_file.mp4" controls="controls" style="max-width: 730px;"></video>
+
 <a href="media/demo_data.png" target="_blank">![demo_data](media/demo_data.png)</a>
 
 The Load data option is located under the Menu on the top left corner, shown in the black rectangle. Click on the Menu and access to the dropdown menu.

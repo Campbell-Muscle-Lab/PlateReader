@@ -1,9 +1,9 @@
-title: MyofibrilProfiler
-description: An open-source to extract profiles of striations
+title: PlateReader
+description: PlateReader is simple open-source software to calculate concentrations via plate reader assays
 remote_theme: pmarsceill/just-the-docs
 
 url: https://www.campbellmusclelab.org
 
 aux_links:
-  MyofibrilProfiler Repo: https://github.com/campbell-muscle-lab/myofibrilprofiler
+  PlateReader Repo: https://github.com/campbell-muscle-lab/platereader
   UKTCVR Repo: https://campbell-muscle-lab.github.io/MATLAB_UKTCVR/

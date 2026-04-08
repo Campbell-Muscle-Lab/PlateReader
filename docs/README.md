@@ -1,8 +1,6 @@
+## PlateReader
 
-## MyofibrilProfiler
+PlateReader is simple open-source software to calculate concentrations via plate reader assays developed by [Utku Gulbulak](mailto:utku.gulbulak@uky.edu) and [Ken Campbell](mailto:k.s.campbell@uky.edu)
 
-MyofibrilProfiler is an open-source software developed to extract and analyze striated patterns from muscle preparations labeled with immunofluorescent agents. It seamlessly works with proprietary microscope image file formats (ND2) as well as standard image formats (TIF and PNG). The software is developed by [Utku Gulbulak](mailto:utku.gulbulak@uky.edu), [Thomas Kampourakis](mailto:tka265@uky.edu), and [Ken Campbell](mailto:kscamp3@uky.edu).
+<a href="media/platereader_app.png" target="_blank">![PlateReader GUI](media/platereader_app.png)</a>
 
-
-
-<a href="media/myofibrilprofiler_app.png" target="_blank">![MyofibrilProfiler GUI](media/myofibrilprofiler_app.png)</a>

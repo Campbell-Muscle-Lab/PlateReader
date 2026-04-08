@@ -37,7 +37,7 @@ The URL of the PlateReader repo is :
 https://github.com/Campbell-Muscle-Lab/PlateReader.git
 ```
 
-Enter the URL in the textbox shown in the red rectangle. Select the location you would like to store the cloned repository.
+Enter the URL in the textbox. Select the location you would like to store the cloned repository.
 
 <a href="media/platereader_repo.png" target="_blank">![PlateReader repo](media/platereader_repo.png)</a>
 

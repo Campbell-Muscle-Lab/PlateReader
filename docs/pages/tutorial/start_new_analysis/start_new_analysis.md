@@ -8,254 +8,123 @@ layout: page
 
 # **Start new analysis**
 
-This tutorial provides simple instructions on performing a new analysis with MyofibrilProfiler. Clicking on any of the images on this page will open a larger version in a new browser window. The preparation shown here was probed for myosin heavy chain and an associated protein.
+This tutorial provides simple instructions on performing a new analysis with PlateReader. Clicking on any of the images on this page will open a larger version in a new browser window. 
 
 ## Getting started
 
-+ Using the MyofibrilProfiler through MATLAB:
-    - Launch MATLAB and navigate to the Apps tab on the top menu. Find the MyofibrilProfiler under My Apps and start the application by clicking it. The instructions on how to locate the Apps tab can be found [here](../../installation/installing_matlab_app/installing_matlab_app.html).
++ Using the PlateReader through MATLAB:
+    - Launch MATLAB and navigate to the Apps tab on the top menu. Find the PlateReader under My Apps and start the application by clicking it. The instructions on how to locate the Apps tab can be found [here](../../installation/installing_matlab_app/installing_matlab_app.html).
 
-+ Using the MyofibrilProfiler as a stand-alone application:
-    - Locate your `MyofibrilProfiler.exe` shortcut and start the application by double-clicking it.
++ Using the PlateReader as a stand-alone application:
+    - Locate your `PlateReader.exe` shortcut and start the application by double-clicking it.
 
 After a few seconds, you should see the program window, given below. 
 
-<a href="media/myofibril_profiler_app.png" target="_blank">![myofibril_profiler_app](media/myofibril_profiler_app.png)</a>
+<a href="media/platereader_app.png" target="_blank">![platereader_app](media/platereader_app.png)</a>
 
 ## User panels
 
 The interface is divided into multiple panels:
 
-- Controls: The user controls are accessed in this panel:
-    + Channel Colormap: Users can either use the emission wavelengths of each channel or [a generic colormap](https://en.wikipedia.org/wiki/Parula) for pseudo coloring and trace colors.
-    + ROI: The regions of interest (ROI) is selected through this panel. By default, the ROIs are derived from splines, but users can expand them into quadrilaterals to average around the spline.
-    + Profile: The software uses a [peak finding algorithm](https://www.mathworks.com/help/signal/ref/findpeaks.html) to identify the crescents and troughs in the profile. Users can change the default values through this panel. More detail on these options can be found below.
-- Image Display: Loaded images are displayed in this panel. Channel tabs and an additional tab for the merged image is automatially generated.
-- Profiler Panel: Extracted profiles are shown in this panel. Since the profiles are two-dimensional, there are additional displays for "views" from horizontal and vertical image axes.
-- Sarcomere Panel: Analyzed sarcomere profiles are shown in this panel. Sarcomere length and full half max width are calculated and tabulated.
+- Standard Curve: The measured absorbance values and known standard concentrations are shown here. The fitted line and its parameters are displayed as well.
+- Sample Values: The measured absorbance and calculated concentration values are shown here.
 
-## Loading images
+## Loading layout
 
-Users start their analysis by loading their images to the software environment. They can either use the commercial image formats, such as Nikon originated ".ND2" files, or standard image formats, for instance ".TIF" or ".PNG" files.
+Users start their analysis by loading their layout to the software environment. These layout files should consist sample level information, plate level information, and standard concentrations.
 
-The MyofibrilProfiler is built to support Nikon images. The image support will be extended in the future and the tutorial will be updated as needed.
+The Load layout option is located under the Menu on the top left corner, shown in the black rectangle. Click on the Menu and access to the dropdown menu.
 
-### Loading Nikon .ND2 images
+<a href="media/load_layout_menu.png" target="_blank">![load_layout_menu](media/load_layout_menu.png)</a>
 
-The Load Image option is located under the Menu on the top left corner, shown in the red rectangle. Click on the Menu and access to the dropdown menu.
+Clicking opens the below file dialog. The dialog automatically looks for the .XLSX files. Navigate to your folder with the image files and click Open.
 
-<a href="media/top_menu_option.png" target="_blank">![top_menu_option](media/top_menu_option.png)</a>
+<a href="media/load_layout_dialog.png" target="_blank">![load_layout_dialog](media/load_layout_dialog.png)</a>
 
-As you hover over the Load Image option, additional options appear. Click on the Nikon option, highlighted in the red rectangle.
+### Layout: Sample layout
 
-<a href="media/load_image_nikon.png" target="_blank">![load_image_nikon](media/load_image_nikon.png)</a>
+This spreadsheet consists of sample level information.
 
-The Nikon option opens the below file dialog. The dialog automatically looks for the .ND2 files. Navigate to your folder with the image files and click Open.
+- hashcode: Deidentified ID
+- specimen_no: Specimen number of the sample. In case of an isolated mitochondria experiment, please use numbering, i.e. 1,2,3 and so on.
+- region: The region of which this sample is taken from.
+- experiment_date: Date of the experiment.
+- well_no: Loaded well ID, a letter followed by the column number.
 
-<a href="media/nikon_file_dialog.png" target="_blank">![nikon_file_dialog](media/nikon_file_dialog.png)</a>
 
-.ND2 files packages data and information from utilized channels under a single file. MyofibrilProfiler directly reads into the files and extract taken images from individual channels, pixels to lengthscle (um) calibration, and emission wavelengths.
+<a href="media/layout_sample_layout.png" target="_blank">![layout_sample_layout](media/layout_sample_layout.png)</a>
 
-Loaded images appear under the Image Display. The channel tabs are automatically generated. Below image shows the image from the Channel 1, shown in red rectangle.
+### Layout: Plate layout
 
-<a href="media/nikon_image_loaded.png" target="_blank">![nikon_image_loaded](media/nikon_image_loaded.png)</a>
+This spreadsheet consists of plate level information. It is a "look-up" table for software to identify the contents of the plate. The example is a 96-well plate but it can be modified as needed as long as the column names are named in the same way. Please make sure to use "Blank","Standard", and "Sample".
 
-Also, note that the pixels to length scale (micron) calibration is loaded from the loaded file.
+<a href="media/layout_plate_layout.png" target="_blank">![layout_plate_layout](media/layout_plate_layout.png)</a>
 
-<a href="media/nikon_image_calibration.png" target="_blank">![nikon_image_calibration](media/nikon_image_calibration.png)</a>
+### Layout: Standard concentrations
 
-Below image shows the image from the Channel 2, shown in red rectangle.
+This spreadsheet consists of the known concentrations of the loaded standard column.
 
-<a href="media/nikon_image_channel_2.png" target="_blank">![nikon_image_channel_2](media/nikon_image_channel_2.png)</a>
+<a href="media/layout_standard_concentration.png" target="_blank">![layout_standard_concentration](media/layout_standard_concentration.png)</a>
 
-Although the software uses these monochromatic images for analysis, a merged image with pseudo coloring is provided for users to review and qualitative analysis. The pseudo coloring is based on the emitted wavelengths, users can change the coloring using the Channel Colormap dropdown, shown in red rectangle.
+## Loading data
 
-<a href="media/nikon_image_merged.png" target="_blank">![nikon_image_merged](media/nikon_image_merged.png)</a>
+The next step in the analysis is to load the raw data from the plate reader. This file is exported from the instrument in a text format. Please make sure to wells are not marked in the instrument, since the calculations will be done separately.
 
-You can hover over the images to reveal the toolbar to Zoom In, Zoom Out, and Reset View. The toolbar is shown in the red rectangle.
+<a href="media/demo_data.png" target="_blank">![demo_data](media/demo_data.png)</a>
 
-<a href="media/image_loaded_image_tools.png" target="_blank">![image_loaded_image_tools](media/image_loaded_image_tools.png)</a>
+The Load data option is located under the Menu on the top left corner, shown in the black rectangle. Click on the Menu and access to the dropdown menu.
 
-A zoomed in view is useful for qualitative localisation and judiciously select ROIs. 
+<a href="media/load_data_menu.png" target="_blank">![load_data_menu](media/load_data_menu.png)</a>
 
-<a href="media/nikon_image_merged_zoom.png" target="_blank">![nikon_image_merged_zoom](media/nikon_image_merged_zoom.png)</a>
+Clicking opens the below file dialog. The dialog automatically looks for the .TXT files. Navigate to your folder with the image files and click Open.
 
-### Loading standard format images
+<a href="media/load_data_dialog.png" target="_blank">![load_data_dialog](media/load_data_dialog.png)</a>
 
-The Load Image option is located under the Menu on the top left corner, shown in the red rectangle. Click on the Menu and access to the dropdown menu.
+## Analysis
 
-<a href="media/top_menu_option.png" target="_blank">![top_menu_option](media/top_menu_option.png)</a>
+Upon loading the data file, the analysis is automatically performed.
 
-As you hover over the Load Image option, additional options appear. Click on the Standard Formats option, highlighted in the red rectangle.
+### Standard curve
 
-<a href="media/load_image_standard_formats.png" target="_blank">![load_image_standard_formats](media/load_image_standard_formats.png)</a>
+The measured absorbance values are shown in green circles and the fitted line appears as a solid black line. This line is built as follows and all the values, including r value, are displayed on the right hand side.
 
-Once the Standard Formats option is clicked, the software opens a dialog box, shown below in red rectangle, for users to enter number of channels in their analysis. Although optional, users can provide the emission wavelengths.
+```
+absorbance = slope*concentration + intercept
+```
 
-<a href="media/standard_formats_channel_input.png" target="_blank">![standard_formats_channel_input](media/standard_formats_channel_input.png)</a>
+### Sample values
 
-Click OK after the fields are filled out.
+The sample concentrations are calculated by solving the following equation for measured absorbance values.
 
-<a href="media/standard_formats_channel_input_entered.png" target="_blank">![standard_formats_channel_input_entered](media/standard_formats_channel_input_entered.png)</a>
-
-In this tutorial the user provided that there are 2 images with 670 and 490 nm emission wavelengths, respectively for Channel 1 and 2. Please note that these image are exported from Nikon example.
-
-MyofibrilProfiler asks for users to load the image for Channel 1 first. Navigate to your folder with the image files and click Open.
-
-<a href="media/standard_formats_channel_1.png" target="_blank">![standard_formats_channel_1](media/standard_formats_channel_1.png)</a>
-
-Then, repeat it for the same for Channel 2.
-
-<a href="media/standard_formats_channel_2.png" target="_blank">![standard_formats_channel_2](media/standard_formats_channel_2.png)</a>
-
-The channel tabs are automatically generated. Below image shows the image from the Channel 1, shown in red rectangle.
-
-<a href="media/standard_images_loaded_channel_1.png" target="_blank">![standard_images_loaded_channel_1](media/standard_images_loaded_channel_1.png)</a>
-
-Below image shows the image from the Channel 2, shown in red rectangle.
-
-<a href="media/standard_images_loaded_channel_2.png" target="_blank">![standard_images_loaded_channel_2](media/standard_images_loaded_channel_2.png)</a>
-
-The pseudo colored merged image appears as red and cyan, instead of green and orange, with respect to the provided wavelengths.
-
-<a href="media/standard_images_loaded_merged.png" target="_blank">![standard_images_loaded_merged](media/standard_images_loaded_merged.png)</a>
-
-Please note that in the Standard Formats case, users are expected to provide the calibration constant from pixels to microns.
-
-Although the rest of the tutorial uses the loaded Nikon image, users can get the same results using the standard format images.
-
-### Region of interests
-
-Now that the image is loaded, users can define their ROI that they want to analyze. Click the Select Points button under the ROI panel shown in the red rectangle.
-
-<a href="media/select_points.png" target="_blank">![select_points](media/select_points.png)</a>
-
-Once clicked the mouse cursor changes to a crosshair for users to pick points. Users can pick as many points as they want as long as the total number of points are greater than 2. These points are connected with a thin blue line on the image axes. Once you are done with the selection, use the right click of your mouse to finalize the process.
-
-<a href="media/select_roi.png" target="_blank">![select_roi](media/select_roi.png)</a>
-
-Once the ROI is determined, MyofibrilProfiler defines a spline using the selected points as the controls. The generated spline appears as magenta and in this case it resembles a line as there are only 2 control points. Since all the channels are simultaneously analyzed, software copies the ROI and the splines onto the other channels. Users can define the ROIs in any channel they prefer.
-
-Here is the ROI and spline in the Channel 1 axis.
-
-<a href="media/select_roi_channel_1.png" target="_blank">![select_roi_channel_1](media/select_roi_channel_1.png)</a>
-
-Here is the ROI and spline in the Channel 2 axis.
-
-<a href="media/select_roi_channel_2.png" target="_blank">![select_roi_channel_2](media/select_roi_channel_2.png)</a>
-
-The ROI and spline can be also found in the Merged image axis. Once again, this tab is used for qualitative review.
-
-<a href="media/select_roi_merged.png" target="_blank">![select_roi_merged](media/select_roi_merged.png)</a>
-
-### Profile extraction
-<p></p>
-
-<a href="media/extracted_profiles.png" target="_blank">![extracted_profiles](media/extracted_profiles.png){: style="float: left"}</a>
-
-<p style="text-align: justify;">
-Once the ROIs are defined, the software initiates the analysis. The pixel intensity is extracted along the crosssection of the generated spline. Since the spline is defined in the 2 dimensional space of the horizontal and vertical image axes. Therefore, the extracted profiles are shown in a 3 dimensional axes. The trace colors follow the Channel Colormap scheme. Channel 1 results are shown in green and the Channel 2 results are shown in orange throughout this tutorial.</p>
-
-<p style="text-align: justify;">
-The extracted profiles are formed by patterns of troughs and crescents and the software uses a peak finding algorithm to identify them. The Z-lines are the starting point and crucial for the rest of the analysis. Since they are not probed with a flourescent agent, they appear as dark in the images with relatively low intensity. The identification is performed on the extracted profile and then locations are marked on respective x and y axes. The Z-lines are shown with dashed lines on the horizontal and vertical image axes figures. Please note that the software specifically aims to capture the troughs with the lower intensities, rather than all of them including the M line.
-</p>
-
-### Sarcomere analysis
-<p></p>
-
-<a href="media/sarcomere_panel.png" target="_blank">![sarcomere_panel](media/sarcomere_panel.png){: style="float: left"}</a>
-
-<p style="text-align: justify;">
-One sarcomere spans between 2 adjacent Z disks. It can be seen from the <a href="/pages/tutorial/start_new_analysis/start_new_analysis.html#profile-extraction">Profiler Panel</a> that there are two full sarcomeres in the extracted profile. The sarcomere length is defined as the distance between 2 Z-lines in 2 dimensional space.</p>
-
-<p style="text-align: justify;">
-The software measures the sarcomere length through an arc length calculation. Once the sarcomere length is defined, each sarcomere profile is extracted and the M-lines (magenta diamonds) are identified. Then, the sarcomere profiles are mapped onto a new spatial axis centered on the M-line with respect to their sarcomere length. The A band peaks are marked with red diamonds.</p>
-
-<p style="text-align: justify;">
-The software measures the sarcomere length through an arc length calculation. Once the sarcomere length is defined, each sarcomere profile is extracted and the M-lines (magenta diamonds) are identified. Then, the sarcomere profiles are mapped onto a new spatial axis centered on the M-line with respect to their sarcomere length. The A band peaks are marked with red diamonds. The intensity value at each peak is used to find the location at which the intensity is at 50% of the peak value. This is done for both right and left hand side of the M-line. The full width half maximum (FWHM) is calculated as the distance between the left and right side 50% values. All the calculated sarcomere lengths and FWHM values are tabulated in the Sarcomere Panel. The average sarcomere profiles are shown in the Average Sarcomere Intensity plot. Each average profile is shown with the standard deviation envelope.</p>
-
-### Profiler options
-
-<h5>Channel colormap</h5>
-
-As mentioned earlier, the color scheme follows the emission wavelenghts of interest. If the color scheme is not feasible for visualization, users can switch to the Parula colormap. This option is available under the Channel Colormap drop down shown in the red rectangle.
-
-<a href="media/colormaps.png" target="_blank">![colormaps](media/colormaps.png)</a>
-
-Parula colormap is applied all the traces as well as the pseudo coloring of the merged image.
-
-<a href="media/colormaps_parula.png" target="_blank">![colormaps_parula](media/colormaps_parula.png)</a>
-
-
-<h5>ROI update</h5>
-
-Each ROI is attached to a callback at the backend to update the calculations once the position is changed. This feature is executed once users are done with repositioning. The blue circles are the anchors of the ROI and can be moved anywhere around the image. Any available anchor point can be used for this purpose. The ROIs and generated splines are updated in all the channels. Users can perform this from any image axis they want. The below video provides and example.
-
-<video src="media/roi_update.mp4" controls="controls" style="max-width: 730px;"></video>
-
-<h5>ROI width (expansion)</h5>
-
-In the above trailer, the images are analyzed using along a spline. This method is similar to "line scan" in imaging. Users can expand their chosen ROI and transform it to a quadrilateral. As it can be seen from the images in this tutorial, the extracted profiles are somewhat noisy. In a quadrilateral ROI case, the profiles along the width of the ROI is averaged. The software rotates the image in the backend until the line segment is perpendicular to the vertical image axis, then records the intensity values centered around the spline. This option can be accessed in the ROI panel. Please keep in mind that the width values are entered in pixels. Once the value is changed, a progress window appears to relay progress for each images. This process is robust but please keep in mind that the length of this process depends on the size of the ROI. The below video shows an example in real time on a standard laptop.
-
-<video src="media/roi_expansion.mp4" controls="controls" style="max-width: 730px;"></video>
-
-As a result of the averaging, sarcomere profiles are smoothened and the initial values are slightly changed. The analyzed area appears as a transparent patch, shown in red rectangle, on the all the axes following the calculations.
-
-<a href="media/patch.png" target="_blank">![patch](media/patch.png)</a>
-
-<h5>Z line prominence</h5>
-
-Since the extracted profiles are cyclic, it is important to not to mark all the troughs as the Z-line. The software uses an option called prominence to go around this. The default prominence value is 0.5, which means that MyofibrilProfiler is looking for values that are at least half of the maximum intensity of the sampled space measured from a reference point. Users can change this value through the Profiler panel, shown in red rectangle.
-
-<a href="media/z_line_prominence.png" target="_blank">![z_line_prominence](media/z_line_prominence.png)</a>
-
-The Z-line prominence value is reduced to 0.1 and all the troughs are labeled as Z-lines. This option might be useful for troubleshooting purposes, but it resulted in with an unwanted results in this case.
-
-<h5>A band prominence</h5>
-
-Similar to the Z-line prominence, A-band prominence helps to distinguish the peaks in the sarcomere profiles. This value is relatively lower than the Z-line prominence since they are close in intensity and slightly separated by M-lines with similar intensities. 
-
-In this example, increase in the value resulted in missing an A-band peak which is quite close to the M-line pixel intensity.
-
-<a href="media/a_band_prominence.png" target="_blank">![a_band_prominence](media/a_band_prominence.png)</a>
-
-<h5>Pixel to length scale calibration</h5>
-
-The reported sarcomere length and FWHM are in microns. Users can change the calibration constant from the Calibration field in the Profile Panel, shown in red rectangle.
-
-<a href="media/calibration.png" target="_blank">![calibration](media/calibration.png)</a>
-
-Please not that the only sarcomere length and FWHM values are changed.
+```
+concentration = (absorbance-intercept)/slope
+```
 
 ### Export results
 
-Once users are done with their analysis, they can export the analysin into their host computers. A summary Excel sheet and an analyis file with .myoprof extension are saved. The exported analysis files can be loaded back into the software to [revisit the analysis](../load_analysis/load_analysis.html).
+Once users are done with their analysis, they can export the analysis into their host computers. A summary Excel sheet and an analysis file with .pr extension are saved. The exported analysis files can be loaded back into the software to [revisit the analysis](../load_analysis/load_analysis.html).
 
-Export Analysis option is accessed through the top menu, shown in the red rectangle.
+Export analysis option is accessed through the top menu, shown in the black rectangle.
 
-<a href="media/export_analysis.png" target="_blank">![export_analysis](media/export_analysis.png)</a>
+<a href="media/export_analysis_menu.png" target="_blank">![export_analysis_menu](media/export_analysis_menu.png)</a>
 
 Once it is clicked, it opens a file dialog. Navigate to the folder that you want to use.
 
 <a href="media/export_analysis_dialog.png" target="_blank">![export_analysis_dialog](media/export_analysis_dialog.png)</a>
 
-The Excel file and the .myoprof file share the same name. Enter the name and hit Save. You can find both of the files under the designated folder.
+The Excel file and the .pr file share the same name. Enter the name and hit Save. You can find both of the files under the designated folder.
 
-<a href="media/saved_files.png" target="_blank">![saved_files](media/saved_files.png)</a>
+<a href="media/exported_files.png" target="_blank">![exported_files](media/exported_files.png)</a>
 
-The exported Excel file has multiple sheets. The first sheet is the Analysis Summary sheet. It consists of the name of the analyzed image, used calibration, and number of channels. The summary stats for sarcomere length and FWHM are given with mean, standard deviation, and standard error of the mean.
+The exported Excel file has multiple sheets. The first sheet is the analysis summary sheet. It combines the sample level information from the layout with the mean concentrations from wells.
 
-<a href="media/analysis_summary.png" target="_blank">![analysis_summary](media/analysis_summary.png)</a>
+<a href="media/demo_results_analysis_summary.png" target="_blank">![demo_results_analysis_summary](media/demo_results_analysis_summary.png)</a>
 
-The second sheet is the Sarcomere Summary. It is the exported version of the sarcomere table in the Sarcomere Panel. You can find the individual values from each sarcomere here.
+The second sheet is the plate results. It is the sample layout merged with the concentration values from each well.
 
-<a href="media/sarcomere_summary.png" target="_blank">![sarcomere_summary](media/sarcomere_summary.png)</a>
+<a href="media/demo_results_plate_results.png" target="_blank">![demo_results_plate_results](media/demo_results_plate_results.png)</a>
 
-The following sheets are available for all the analyzed channels. Summary profiles sheet stores the mean, standard deviation, and standard error of the mean sarcomere intensity profiles.
+The last sheet is the standard columns. It has the absorbance values of the loaded standard columns.
 
-<a href="media/channel_1_summary_profiles.png" target="_blank">![channel_1_summary_profiles](media/channel_1_summary_profiles.png)</a>
-
-The Sarcomere Profiles has the individual intensity profiles of each sarcomere.
-
-<a href="media/channel_1_sarcomere_profiles.png" target="_blank">![channel_1_sarcomere_profiles](media/channel_1_sarcomere_profiles.png)</a>
+<a href="media/demo_results_standard_columns.png" target="_blank">![demo_results_standard_columns](media/demo_results_standard_columns.png)</a>
 
